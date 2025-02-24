@@ -1,41 +1,69 @@
 import java.util.Scanner;
 
 public class Tests {
+    private double ave;   //saves the average of test scores
+    private int count;    //saves the number of test scores entered
+    private int score;    //saves the current test score
 
-    //Private data fields
-    private double sum = 0.0;
-    private int count = 0;
-
-    //Constructor
+    //constructor
     public Tests() {
+        ave = 0.0;
+        count = 0;
+        score = 0;
     }
 
-    //get test scores from the user and calculate the sum
+    //method to get test scores and get the average
     public void getAverage() {
         Scanner scanner = new Scanner(System.in);
-        double score;
+        int sum = 0;
+        int tempScore;
 
-        //Prompt the user to input scores, unless -1 is entered
-        do {
-            System.out.print("Enter a test score (enter -1 to quit): ");
-            score = scanner.nextDouble();
+        System.out.println("Enter test scores (-1 to quit):");
+        
+        while (true) {
+            System.out.print("Enter a test score: ");
+            tempScore = scanner.nextInt();
 
-            //If the score isn't -1 add it to the sum
-            if (score != -1) {
-                sum += score;
-                count++;
+            if (tempScore == -1) {
+                break;
             }
 
-        } while (score != -1);
+            sum += tempScore;
+            count++;
+        }
 
         scanner.close();
+
+        //avoids dividing by 0
+        if (count > 0) {
+            ave = (double) sum / count;
+        } else {
+            ave = Double.NaN; // Not a Number if nothing was entered
+        }
     }
 
-    //return the average score as a string
-    public String toString() {
-        //If no scores were entered
-        double average = (count > 0) ? sum / count : Double.NaN;
+    //Getter for average
+    public double getAve() {
+        return ave;
+    }
 
-        return "The average of the " + count + " scores entered is " + String.format("%.2f", average);
+    //Getter for count
+    public int getCount() {
+        return count;
+    }
+
+    //Getter for score
+    public int getScore() {
+        return score;
+    }
+
+    //Setter for score
+    public void setScore(int newScore) {
+        this.score = newScore;
+    }
+
+    //toString method to show results
+    public String toString() {
+        return "The average of the " + count + " scores entered is " + String.format("%.2f", ave);
     }
 }
