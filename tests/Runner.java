@@ -8,6 +8,6 @@ public class Runner {
         testScores.getAverage();
 
         //Display the results
-        System.out.println(testScores.toString());
+        System.out.println(testScores);
     }
 }
